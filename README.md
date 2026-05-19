@@ -12,7 +12,8 @@ cd projgen-test
 npx @projgen/cli create https://raw.githubusercontent.com/Projgen/demonstration/refs/heads/main/demo-template.json -y
 ```
 
-- - press 'y' and ENTER
+- press 'y' and `ENTER`
+- press `ENTER` to select `npm`
 
 After [confirming](#checks) everything is correct, you can delete the `projgen-test` folder again
 
@@ -22,10 +23,15 @@ After [confirming](#checks) everything is correct, you can delete the `projgen-t
 mkdir projgen-test
 cd projgen-test
 npx @projgen/cli add https://raw.githubusercontent.com/Projgen/demonstration/refs/heads/main/demo-template.json
-npx @projgen/cli cr demo-template.json -y
 ```
 
-- press 'y' and ENTER
+- press 'y' and `ENTER`
+
+```powershell
+npx @projgen/cli cr demo-template -y
+```
+
+- press `ENTER` to select `npm`
 
 After [confirming](#checks) everything is correct, you can delete the `projgen-test` folder again
 
