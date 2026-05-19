@@ -50,14 +50,14 @@
       "type": "run",
       "name": "create vite project",
       "description": "creates the baseline for the project using npm create",
-      "command": "npm",
+      "command": "npx",
       "args": [
-        "create",
-        "vite@latest",
+        "--yes",
+        "create-vite@latest",
         "{{project-name}}",
         "--template",
-        "vanilla",
-        "-y"
+        "react-ts",
+        "--no-interactive"
       ]
     },
     {
