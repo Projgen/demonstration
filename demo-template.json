@@ -1,0 +1,126 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Projgen/core/refs/heads/master/template.schema.json",
+  "id": "demo-template",
+  "name": "demo template",
+  "author": "Loris Rüegg",
+  "description": "A template for demonstration purposes.",
+  "engineVersion": "3.0",
+  "version": "1.0.0",
+  "variables": [
+    {
+      "name": "project-name",
+      "type": "string",
+      "message": "Project name:",
+      "default": "my-project",
+      "required": true
+    },
+    {
+      "name": "use-tailwind",
+      "type": "boolean",
+      "message": "Use Tailwind CSS?",
+      "default": true
+    },
+    {
+      "type": "number",
+      "name": "port",
+      "message": "Port number:",
+      "default": 3000,
+      "required": true
+    },
+    {
+      "type": "select",
+      "name": "package-manager",
+      "message": "Package manager:",
+      "options": ["npm", "yarn", "pnpm"],
+      "required": true
+    },
+    {
+      "type": "multi-select",
+      "name": "features",
+      "message": "Select features to include:",
+      "options": ["Authentication", "Database", "API", "Testing"],
+      "required": false
+    }
+  ],
+  "steps": [
+    {
+      "when": [
+        { "variable": "package-manager", "operator": "eq", "value": "npm" }
+      ],
+      "type": "run",
+      "name": "create vite project",
+      "description": "creates the baseline for the project using npm create",
+      "command": "npm",
+      "args": [
+        "create",
+        "vite@latest",
+        "{{project-name}}",
+        "--template",
+        "vanilla",
+        "-y"
+      ]
+    },
+    {
+      "when": [
+        { "variable": "package-manager", "operator": "neq", "value": "npm" }
+      ],
+      "type": "run",
+      "name": "create vite project from non-npm package manager",
+      "description": "creates the baseline for the project using [package-manager] create",
+      "command": "{{package-manager}}",
+      "args": ["create", "vite"]
+    },
+    {
+      "when": [{ "variable": "use-tailwind", "operator": "eq", "value": true }],
+      "type": "run",
+      "name": "install tailwindcss",
+      "description": "installs Tailwind CSS for the project",
+      "command": "{{package-manager}}",
+      "args": ["install", "@tailwindcss/vite"],
+      "cwd": "{{project-name}}"
+    },
+    {
+      "when": [{ "variable": "use-tailwind", "operator": "eq", "value": true }],
+      "type": "patch-text",
+      "name": "import tailwindcss in vite config",
+      "description": "imports the Tailwind CSS plugin in vite.config.ts",
+      "path": "{{project-name}}/vite.config.ts",
+      "operation": "prepend",
+      "content": "import tailwindcss from '@tailwindcss/vite'\n"
+    },
+    {
+      "when": [{ "variable": "use-tailwind", "operator": "eq", "value": true }],
+      "type": "patch-text",
+      "name": "configure vite config for tailwindcss",
+      "description": "configures vite.config.ts to include the Tailwind CSS plugin",
+      "path": "{{project-name}}/vite.config.ts",
+      "operation": "replace",
+      "find": "plugins: [",
+      "content": "plugins: [tailwindcss(),"
+    },
+    {
+      "when": [{ "variable": "use-tailwind", "operator": "eq", "value": true }],
+      "type": "write",
+      "name": "import tailwind in clean main.css",
+      "description": "imports Tailwind CSS directives in the main CSS file",
+      "path": "{{project-name}}/src/index.css",
+      "content": "@import 'tailwindcss';"
+    },
+    {
+      "when": [{ "variable": "use-tailwind", "operator": "eq", "value": true }],
+      "type": "run",
+      "command": "echo",
+      "args": ["Added Tailwindcss"],
+      "continueOnError": true
+    },
+    {
+      "type": "patch-json",
+      "name": "set version",
+      "description": "sets the version field in package.json to 1.0.0",
+      "path": "{{project-name}}/package.json",
+      "operation": "set",
+      "jsonPath": ["version"],
+      "value": "1.0.0"
+    }
+  ]
+}
