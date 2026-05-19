@@ -6,7 +6,7 @@ Contains a step by step guide for demonstration and mass testing purposes
 
 ### remote template execution
 
-```powershell
+```bash
 mkdir projgen-test
 cd projgen-test
 npx @projgen/cli create https://raw.githubusercontent.com/Projgen/demonstration/refs/heads/main/demo-template.json -y
@@ -19,7 +19,7 @@ After [confirming](#checks) everything is correct, you can delete the `projgen-t
 
 ### local template execution
 
-```powershell
+```bash
 mkdir projgen-test
 cd projgen-test
 npx @projgen/cli add https://raw.githubusercontent.com/Projgen/demonstration/refs/heads/main/demo-template.json
@@ -27,7 +27,7 @@ npx @projgen/cli add https://raw.githubusercontent.com/Projgen/demonstration/ref
 
 - press 'y' and `ENTER`
 
-```powershell
+```bash
 npx @projgen/cli cr demo-template -y
 ```
 
