@@ -28,7 +28,7 @@ npx @projgen/cli add https://raw.githubusercontent.com/Projgen/demonstration/ref
 - press 'y' and `ENTER`
 
 ```bash
-npx @projgen/cli cr demo-template -y
+npx @projgen/cli create demo-template -y
 ```
 
 - press `ENTER` to select `npm`
@@ -38,7 +38,7 @@ After [confirming](#checks) everything is correct, you can delete the `projgen-t
 ## Checks
 
 - Check for:
-  - Folder ./{{project-name}} was created and contains the regular vite react boilerplate code
+  - Folder ./my-project was created and contains the regular vite react boilerplate code
   - `package.json` contains `@tailwindcss/vite` in `dependencies`
   - `vite.config.ts` has an import from `@tailwindcss/vite` and lists `tailwindcss()` in plugins
   - `src/index.css` contains only `@import 'tailwindcss';`
